@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support - Chronoball: Time to Shoot!</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #e0e0e0;
+        background: linear-gradient(135deg, #0a0a0f 0%, #000000 50%, #0a0f15 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(20, 20, 25, 0.95);
+        padding: 50px 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+                    0 0 0 1px rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .container::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+        animation: pulse 8s ease-in-out infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.1); }
+      }
+      
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .header h1 {
+        font-size: 2.5em;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-shadow: 0 0 20px rgba(0, 212, 255, 0.5),
+                     0 2px 10px rgba(0, 0, 0, 0.8);
+        letter-spacing: -0.5px;
+      }
+      
+      .header .subtitle {
+        font-size: 1.1em;
+        color: #00d4ff;
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      
+      .tagline {
+        text-align: center;
+        color: #888;
+        font-style: italic;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .intro {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 25px;
+        background: linear-gradient(135deg, rgba(0, 122, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+        border-radius: 12px;
+        border: 1px solid rgba(0, 122, 255, 0.2);
+      }
+      
+      .intro p {
+        font-size: 1.1em;
+        color: #d0d0d0;
+        margin-bottom: 10px;
+      }
+      
+      h2 {
+        color: #00d4ff;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        border-left: 4px solid #007aff;
+        padding-left: 15px;
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+      }
+      
+      h2:first-of-type {
+        margin-top: 0;
+      }
+      
+      p {
+        margin-bottom: 15px;
+        color: #d0d0d0;
+      }
+      
+      ul {
+        margin-left: 20px;
+        margin-bottom: 20px;
+        color: #d0d0d0;
+      }
+      
+      li {
+        margin-bottom: 10px;
+      }
+      
+      strong {
+        color: #ffffff;
+        font-weight: 600;
+      }
+      
+      .faq-item {
+        background: linear-gradient(135deg, rgba(0, 122, 255, 0.08) 0%, rgba(0, 212, 255, 0.04) 100%);
+        border-left: 4px solid #007aff;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      
+      .faq-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 16px rgba(0, 122, 255, 0.2);
+      }
+      
+      .faq-item h3 {
+        color: #00d4ff;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+      }
+      
+      .contact-box {
+        background: linear-gradient(135deg, rgba(0, 122, 255, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+        border: 1px solid rgba(0, 122, 255, 0.3);
+        padding: 30px;
+        border-radius: 12px;
+        margin-top: 40px;
+        box-shadow: 0 4px 16px rgba(0, 122, 255, 0.2);
+        text-align: center;
+      }
+      
+      .contact-box h2 {
+        border: none;
+        padding: 0;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      
+      .contact-box p {
+        margin-bottom: 15px;
+      }
+      
+      .email-link {
+        display: inline-block;
+        color: #00d4ff;
+        font-size: 1.1em;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 10px 20px;
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+      
+      .email-link:hover {
+        background: rgba(0, 212, 255, 0.1);
+        border-color: #00d4ff;
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        transform: scale(1.05);
+      }
+      
+      .game-tip {
+        background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
+        border-left: 4px solid #ffc107;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+        position: relative;
+      }
+      
+      .game-tip::before {
+        content: "💡";
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5em;
+        opacity: 0.3;
+      }
+      
+      .game-tip h3 {
+        color: #ffc107;
+        margin-bottom: 10px;
+      }
+      
+      .footer-links {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .footer-links a {
+        color: #00d4ff;
+        text-decoration: none;
+        margin: 0 15px;
+        transition: color 0.3s ease;
+      }
+      
+      .footer-links a:hover {
+        color: #007aff;
+        text-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+      }
+      
+      .emoji {
+        font-size: 1.2em;
+        margin-right: 5px;
+      }
+      
+      @media (max-width: 600px) {
+        .container {
+          padding: 30px 20px;
+        }
+        
+        .header h1 {
+          font-size: 2em;
+        }
+        
+        h2 {
+          font-size: 1.3em;
+        }
+        
+        .footer-links a {
+          display: block;
+          margin: 10px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>⚽ Support</h1>
+        <div class="subtitle">Chronoball: Time to Shoot!</div>
+      </div>
+      <p class="tagline">Perfect timing wins matches. We're here to help you master it.</p>
+
+      <div class="content">
+        <div class="intro">
+          <p>
+            Welcome to <strong>Chronoball: Time to Shoot!</strong> support. Whether you're
+            struggling with timing, have questions about gameplay, or need technical assistance,
+            we're here to help you become a timing legend.
+          </p>
+        </div>
+
+        <h2>🎮 How to Play</h2>
+        <div class="faq-item">
+          <h3>What is Chronoball?</h3>
+          <p>
+            Chronoball is a precision timing-based football game where every centisecond counts.
+            You must tap at the perfect moment (0, 25, 50, or 75 centiseconds) to score goals,
+            make saves, and control the match. Master the rhythm, master the game!
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do I improve my timing?</h3>
+          <p>
+            Practice makes perfect! Start with longer match durations (70s or 90s) to get
+            comfortable with the timing. Watch the analog chronometer carefully—the key is
+            hitting those precise targets: .00 for goals, .25/.75 for possession, and .50
+            for shots on target.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What are the different game modes?</h3>
+          <ul>
+            <li><strong>Two-Player Mode:</strong> Challenge a friend in head-to-head matches</li>
+            <li><strong>VS CPU:</strong> Battle against AI opponents with 5 difficulty levels:
+              <ul>
+                <li>⚪ <strong>Rookie:</strong> Still learning</li>
+                <li>🟢 <strong>Casual:</strong> Takes it easy</li>
+                <li>🟡 <strong>Balanced:</strong> Fair challenge</li>
+                <li>🟠 <strong>Aggressive:</strong> Plays to win</li>
+                <li>🔴 <strong>Ruthless:</strong> No mercy</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="faq-item">
+          <h3>What match durations are available?</h3>
+          <p>
+            Choose from 5 match durations: 10s (Blitz), 30s (Quick), 50s (Short), 70s (Standard),
+            or 90s (Full match). Each has its own pace and strategy!
+          </p>
+        </div>
+
+        <h2>⚙️ Technical Support</h2>
+        <div class="faq-item">
+          <h3>The app crashes or freezes</h3>
+          <p>
+            Try these steps:
+          </p>
+          <ul>
+            <li>Force close the app and restart it</li>
+            <li>Restart your device</li>
+            <li>Make sure you're running the latest version of the app</li>
+            <li>Check that your device meets the minimum requirements (iOS/watchOS 26.1+)</li>
+          </ul>
+        </div>
+
+        <div class="faq-item">
+          <h3>Sounds or haptics not working</h3>
+          <p>
+            Check your device settings:
+          </p>
+          <ul>
+            <li>Ensure your device isn't in Silent Mode</li>
+            <li>Check that system sounds are enabled</li>
+            <li>Verify haptic feedback is enabled in Settings</li>
+            <li>On iPhone, check the side switch isn't set to silent</li>
+          </ul>
+        </div>
+
+        <div class="faq-item">
+          <h3>App won't install or update</h3>
+          <p>
+            This is usually related to App Store or device storage issues:
+          </p>
+          <ul>
+            <li>Check you have enough storage space</li>
+            <li>Ensure you're signed into the App Store with the correct Apple ID</li>
+            <li>Try restarting your device</li>
+            <li>Check your internet connection</li>
+          </ul>
+        </div>
+
+        <h2>📱 Device Compatibility</h2>
+        <div class="faq-item">
+          <h3>What devices are supported?</h3>
+          <p>
+            <strong>Chronoball: Time to Shoot!</strong> is available for:
+          </p>
+          <ul>
+            <li>iPhone (iOS 26.1 or later)</li>
+            <li>iPad (iOS 26.1 or later)</li>
+            <li>Apple Watch (watchOS 26.1 or later)</li>
+          </ul>
+          <p>
+            The app works seamlessly across all your Apple devices!
+          </p>
+        </div>
+
+        <div class="game-tip">
+          <h3>💡 Pro Tip</h3>
+          <p>
+            The best way to master Chronoball is to practice consistently. Start with the
+            "Rookie" CPU difficulty and work your way up. Remember: perfect timing at .00
+            means an unstoppable goal, while .25/.75 keeps possession. Time your taps like
+            a pro!
+          </p>
+        </div>
+
+        <h2>🐛 Reporting Issues</h2>
+        <p>
+          If you encounter a bug or have a feature request, please contact us with:
+        </p>
+        <ul>
+          <li>Device model and iOS/watchOS version</li>
+          <li>Steps to reproduce the issue</li>
+          <li>Screenshots or screen recordings (if applicable)</li>
+          <li>What you were doing when the issue occurred</li>
+        </ul>
+
+        <div class="contact-box">
+          <h2>📧 Contact Us</h2>
+          <p>
+            Need help? Have a question? Want to share your high scores?
+          </p>
+          <p>
+            Reach out to us at:
+          </p>
+          <a href="mailto:[Your email address here]" class="email-link">
+            [Your email address here]
+          </a>
+          <p style="margin-top: 20px; font-size: 0.9em; color: #888;">
+            We typically respond within 24-48 hours. Thank you for playing Chronoball!
+          </p>
+        </div>
+
+        <h2>🎯 Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Is my game data saved?</h3>
+          <p>
+            No, game data is not saved. Each match is independent, just like a real football
+            match. Scores exist only during gameplay and reset when you start a new match.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Can I play offline?</h3>
+          <p>
+            Yes! Chronoball works completely offline. No internet connection required.
+            Perfect for playing anywhere, anytime.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Is there multiplayer?</h3>
+          <p>
+            Yes! Pass-and-play two-player mode lets you challenge friends on the same device.
+            Take turns and see who has the better timing!
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do I share my scores?</h3>
+          <p>
+            After a match, use the share button to create a beautiful scorecard image you
+            can share on social media. Show off your perfect timing!
+          </p>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <a href="Support.html">Support</a>
+        <a href="PrivacyPolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </body>
+</html>
+
